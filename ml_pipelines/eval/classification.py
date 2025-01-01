@@ -98,13 +98,14 @@ class BaseClassificationEvaluator:
         """
         if self.y_probas is None:
             raise ValueError(f"y_probas is not defined.")
-        make_roc_curve(
-            self.y_true,
-            self.y_probas,
-            self.class_names,
-            self.save_folder,
-            self.curve_figsize,
-        )
+        else:
+            make_roc_curve(
+                self.y_true,
+                self.y_probas,
+                self.class_names,
+                self.save_folder,
+                self.curve_figsize,
+            )
 
     def create_precision_recall_curve(self):
         """
@@ -116,13 +117,14 @@ class BaseClassificationEvaluator:
         """
         if self.y_probas is None:
             raise ValueError(f"y_probas is not defined.")
-        make_precision_recall_curve(
-            self.y_true,
-            self.y_probas,
-            self.class_names,
-            self.save_folder,
-            self.curve_figsize,
-        )
+        else:
+            make_precision_recall_curve(
+                self.y_true,
+                self.y_probas,
+                self.class_names,
+                self.save_folder,
+                self.curve_figsize,
+            )
 
 
 class NumClassificationEvaluator(BaseClassificationEvaluator):
@@ -174,7 +176,6 @@ class NumClassificationEvaluator(BaseClassificationEvaluator):
             report_figsize,
             curve_figsize,
         )
-        self.y_probas = y_probas
 
     def start_evaluation(self):
         """
@@ -211,6 +212,7 @@ class TextClassificationEvaluator(BaseClassificationEvaluator):
         precision-recall curves if probability scores are provided.
 
         Args:
+            X_test (list or array-like): Ground truth Text.
             y_true (list or array-like): Ground truth labels.
             y_pred (list or array-like): Predicted labels.
             class_names (list): Names of the classes corresponding to labels.
@@ -219,9 +221,11 @@ class TextClassificationEvaluator(BaseClassificationEvaluator):
             save_folder (str, optional): Directory to save evaluation results. Defaults to "model_evaluation".
             cm_figsize (tuple[int, int], optional): Size of the confusion matrix plot. Defaults to (10, 10).
             report_figsize (tuple[int, int], optional): Size of the classification report plot. Defaults to (12, 6).
+            predictions_figsize(tuple[int, int], optional): Size of the balance prediction plot. Defaults to (12, 6).
 
         Example usage:
-            evaluator = NumClassificationEvaluator(
+            evaluator = TextClassificationEvaluator(
+                X_test=["abc", "bcd", "cde", "def"]
                 y_true=[0, 1, 0, 1],
                 y_pred=[0, 1, 1, 1],
                 class_names=["Class 0", "Class 1"],
