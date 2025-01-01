@@ -261,6 +261,10 @@ class TextClassificationEvaluator(BaseClassificationEvaluator):
             super().create_precision_recall_curve()
 
     def get_predictions(self):
+        """
+        Extracts and visualizes incorrectly predicted samples from the test set,
+        providing insights into model performance and potential areas for improvement.
+        """
         get_wrong_predictions(
             self.X_test,
             self.y_true,
