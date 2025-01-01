@@ -4,6 +4,8 @@ ml_pipelines.egg-info/PKG-INFO
 ml_pipelines.egg-info/SOURCES.txt
 ml_pipelines.egg-info/dependency_links.txt
 ml_pipelines.egg-info/top_level.txt
+ml_pipelines/eda/__init__.py
+ml_pipelines/eda/mastermind.py
 ml_pipelines/eval/__init__.py
 ml_pipelines/eval/classification.py
 ml_pipelines/eval/regression.py

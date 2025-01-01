@@ -153,11 +153,6 @@ def get_wrong_predictions(
         classes (list): List of class names corresponding to label indices.
         save_folder (str): Path to the directory where outputs will be saved.
         figsize (tuple[int, int], optional): Size of the plot for visualization. Defaults to (10, 6).
-
-    Returns:
-        tuple[pd.DataFrame, pd.DataFrame]: Two DataFrames:
-            - All predictions with additional metadata.
-            - Subset of incorrect predictions only.
     """
     y_pred = y_pred.reshape(-1) if len(classes) == 2 else y_pred
     y_true = y_true.reshape(-1) if len(classes) == 2 else y_true
