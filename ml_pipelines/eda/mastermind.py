@@ -9,7 +9,18 @@ class EDAMastermind:
         self.df = df
         self.cat_cols = self.df.select_dtypes(include=["object"]).columns
         self.num_cols = self.df.select_dtypes(include=["number"]).columns
+        self.contin_cols = self._get_continous_columns()
         self.hue = hue
+
+    def start_eda(self):
+        self.plot_class_balance()
+        self.plot_missing_values()
+        self.plot_pairplot()
+        self.plot_heatmap()
+        self.plot_countsplots()
+        self.plot_piecharts()
+        self.plot_boxplots()
+        self.plot_histograms()
 
     def plot_missing_values(
         self, threshold: int = 0, figsize: tuple[int, int] = (12, 6)
@@ -71,7 +82,7 @@ class EDAMastermind:
         plt.show()
 
     def plot_boxplots(self, figsize: tuple[int, int] = (10, 6)):
-        for col in self.num_cols:
+        for col in self.contin_cols:
             hue = self.hue if self.hue else col
             plt.figure(figsize=figsize)
             sns.boxplot(x=col, data=self.df, hue=hue)
@@ -79,7 +90,7 @@ class EDAMastermind:
         plt.show()
 
     def plot_histograms(self, kde: bool = True, height: int = 5, aspect: int = 2):
-        for col in self.num_cols:
+        for col in self.contin_cols:
             hue = self.hue if self.hue else col
             sns.displot(
                 data=self.df, x=col, kde=kde, height=height, aspect=aspect, hue=hue
@@ -95,3 +106,6 @@ class EDAMastermind:
         plt.ylabel("Count", fontsize=14)
         plt.tight_layout()
         plt.show()
+
+    def _get_continous_columns(self, threshold: int = 50):
+        return [col for col in self.num_cols if len(self.df[col].unique()) > threshold]
