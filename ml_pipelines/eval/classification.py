@@ -3,9 +3,7 @@ from typing import Literal
 
 import matplotlib.pyplot as plt
 import pandas as pd
-# import scikitplot as skplt
-from sklearn.metrics import (accuracy_score, classification_report, f1_score,
-                             precision_score, recall_score)
+from sklearn.metrics import classification_report
 
 from ml_pipelines.utils import (calculate_num_metrics, get_wrong_predictions,
                                 make_classification_report,
